@@ -6,7 +6,7 @@ const features = [
   {
     title: 'Patient Management',
     description: 'Efficiently handle patient registrations, maintain comprehensive medical histories, and ensure quick access to vital information, enhancing patient care and administrative workflows.',
-    icon: '🧑‍⚕',
+    icon: '🧑‍⚕️',
   },
   {
     title: 'Medicine Management',
@@ -41,11 +41,11 @@ const About = () => {
       {/* Hero Section */}
       <div className="relative">
         <img
-          src="https://images.unsplash.com/photo-1588776814546-ec7e4e5c45f9"
-          alt="Healthcare"
+          src="/ig.jpg" // Make sure this image is in the public/ folder
+          alt="Healthcare Hero"
           className="w-full h-96 object-cover brightness-75"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-black text-center px-4">
           <h1 className="text-4xl md:text-5xl font-bold">Empowering Healthcare with Technology</h1>
           <p className="text-lg mt-4 max-w-2xl">
             MediSphere revolutionizes how hospitals, doctors, and patients connect — efficiently and intelligently.
@@ -81,4 +81,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default About;
