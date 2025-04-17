@@ -16,6 +16,10 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  const handleLogin = () =>{
+    window.location.href = "/login";
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -58,7 +62,7 @@ export const FloatingNav = ({
             <span className="text-sm">{navItem.name}</span>
           </a>
         ))}
-        <button className="border text-sm font-medium relative border-neutral-300 text-black px-4 py-2 rounded-full hover:bg-neutral-100 transition">
+        <button   onClick={handleLogin} className="border text-sm font-medium relative border-neutral-300 text-black px-4 py-2 rounded-full hover:bg-neutral-100 transition">
           <span>Login</span>
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-black to-black h-px" />
         </button>
