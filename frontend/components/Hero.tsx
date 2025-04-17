@@ -1,7 +1,6 @@
 import React from 'react'
 import { BackgroundBeamsDemo } from './Beams'
 import { FloatingNav } from './ui/NavBar'
-// import { BackgroundBeams } from './BackgroundBeams'
 
 const Hero = () => {
 
