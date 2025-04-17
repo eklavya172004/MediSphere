@@ -11,10 +11,8 @@ export default function PrescriptionForm() {
     dosageinstruction: '',
     issuedate: '',
     courseduration: '',
-    medid: '',
     quantity: '',
-    consultationdate: '',
-    billid: ''
+    consultationdate: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -52,10 +50,8 @@ export default function PrescriptionForm() {
         dosageinstruction: '',
         issuedate: '',
         courseduration: '',
-        medid: '',
         quantity: '',
-        consultationdate: '',
-        billid: ''
+        consultationdate: ''
       });
       
     } catch (error) {
@@ -164,7 +160,7 @@ export default function PrescriptionForm() {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="medid" className="block text-sm font-medium text-gray-700 mb-1">
               Medicine ID <span className="text-red-500">*</span>
             </label>
@@ -177,7 +173,7 @@ export default function PrescriptionForm() {
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
-          </div>
+          </div> */}
 
           <div>
             <label htmlFor="quantity" className="block text-sm font-medium text-gray-700 mb-1">
@@ -211,19 +207,7 @@ export default function PrescriptionForm() {
             />
           </div>
 
-          <div>
-            <label htmlFor="billid" className="block text-sm font-medium text-gray-700 mb-1">
-              Bill ID
-            </label>
-            <input
-              id="billid"
-              name="billid"
-              placeholder="Enter bill ID (optional)"
-              value={form.billid}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
+         
 
           <button
             type="submit"
