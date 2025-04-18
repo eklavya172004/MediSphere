@@ -1,7 +1,7 @@
+'use client'
 import React from 'react'
 import { BackgroundBeamsDemo } from './Beams'
 import { FloatingNav } from './ui/NavBar'
-// import { BackgroundBeams } from './BackgroundBeams'
 
 const Hero = () => {
 
@@ -26,10 +26,11 @@ const Hero = () => {
       ];
 
   return (
-    <div>
-        {/* <BackgroundBeams/> */}
+    <div className="relative">
         <FloatingNav navItems={navItems} />
         <BackgroundBeamsDemo/>
+
+        {/* </div> */}
     </div>
   )
 }
