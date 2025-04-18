@@ -2,15 +2,17 @@
 import { useState } from 'react';
 
 export default function Signup() {
-  const [role, setRole] = useState<'patient' | 'doctor'>('patient');
+  const [role, setRole] = useState<'patient' | 'doctor' | 'receptionist'>('patient');
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setRole(e.target.value as 'patient' | 'doctor');
+    setRole(e.target.value as 'patient' | 'doctor' | 'receptionist');
   };
 
   const getActionUrl = () => {
-    return role === 'doctor' ? '/auth/doc-signup' : '/auth/signup';
+    if (role === 'doctor') return '/auth/doc-signup';
+    if (role === 'receptionist') return '/auth/receptionist-signup';
+    return '/auth/signup'; // for patient
   };
 
   const validateForm = (e: React.FormEvent) => {
@@ -20,23 +22,17 @@ export default function Signup() {
     const email = form.email.value;
     const phone = form.phone?.value;
 
-    // Email validation (basic pattern)
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !emailPattern.test(email)) {
       errors.email = 'Please enter a valid email address.';
     }
 
-    // Phone number validation (exactly 10 digits)
     if (phone && !/^\d{10}$/.test(phone)) {
       errors.phone = 'Phone number must be exactly 10 digits.';
     }
 
     setFormErrors(errors);
-
-    // If there are no errors, submit the form
-    if (Object.keys(errors).length === 0) {
-      form.submit();
-    }
+    if (Object.keys(errors).length === 0) form.submit();
   };
 
   return (
@@ -48,7 +44,7 @@ export default function Signup() {
         className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
       >
         <h2 className="text-xl font-bold mb-4 text-center">
-          Create {role === 'doctor' ? 'Doctor' : 'Patient'} Account
+          Create {role.charAt(0).toUpperCase() + role.slice(1)} Account
         </h2>
 
         {/* Role selector */}
@@ -62,6 +58,7 @@ export default function Signup() {
           >
             <option value="patient">Patient</option>
             <option value="doctor">Doctor</option>
+            <option value="receptionist">Receptionist</option>
           </select>
         </label>
 
@@ -82,22 +79,47 @@ export default function Signup() {
           className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
         />
 
+        {role !== 'receptionist' && (
+          <>
+            <input
+              type="text"
+              name="first_name"
+              placeholder="First Name"
+              required
+              className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
+            />
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Last Name"
+              required
+              className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </>
+        )}
+
+        {role === 'receptionist' && (
+          <>
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              required
+              className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </>
+        )}
+
         <input
-          type="text"
-          name="first_name"
-          placeholder="First Name"
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
           required
           className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
         />
+        {formErrors.phone && <p className="text-red-500 text-sm">{formErrors.phone}</p>}
 
-        <input
-          type="text"
-          name="last_name"
-          placeholder="Last Name"
-          required
-          className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
-        />
-
+        {/* Role-specific fields */}
         {role === 'patient' && (
           <>
             <input
@@ -107,16 +129,6 @@ export default function Signup() {
               required
               className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
             />
-
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              required
-              className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
-            />
-            {formErrors.phone && <p className="text-red-500 text-sm">{formErrors.phone}</p>}
-
             <input
               type="text"
               name="relationship"
@@ -124,7 +136,6 @@ export default function Signup() {
               required
               className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
             />
-
             <input
               type="number"
               name="patient_id"
@@ -144,15 +155,6 @@ export default function Signup() {
               required
               className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
             />
-
-            <input
-              type="tel"
-              name="contact"
-              placeholder="Phone Number"
-              required
-              className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
-            />
-
             <input
               type="number"
               name="doctor_id"

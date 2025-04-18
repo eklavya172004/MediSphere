@@ -62,8 +62,8 @@ export const FloatingNav = ({
             <span className="text-sm">{navItem.name}</span>
           </a>
         ))}
-        <button   onClick={handleLogin} className="border text-sm font-medium relative border-neutral-300 text-black px-4 py-2 rounded-full hover:bg-neutral-100 transition">
-          <span>Login</span>
+        <button   onClick={handleLogin} className="border text-sm hover:cursor-pointer font-medium relative border-neutral-300 text-black px-4 py-2 rounded-full hover:bg-neutral-100 transition">
+          <span>Book an appointment/login</span>
           <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-black to-black h-px" />
         </button>
       </motion.div>

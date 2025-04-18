@@ -44,17 +44,18 @@ export async function POST(req: NextRequest) {
         user_id: userId,
         name: `${firstname} ${lastname}`,
         specialization,
-        contact
+        contact,
+        // role:"doctor"
       },
     ]);
 
     if (dbError) {
-      console.error("Error inserting patient:", dbError,data);  // Log the full error object
+      // console.error("Error inserting patient:", dbError,data);  // Log the full error object
       return NextResponse.redirect(url.origin + "/login", {
         status: 301,
       });
     }
 
   // return NextResponse.redirect(new URL("/login", req.url));
-  return NextResponse.redirect(url.origin, { status: 301 });
+  return NextResponse.redirect(url.origin+'/login', { status: 301 });
 } 

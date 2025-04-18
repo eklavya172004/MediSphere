@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast'; // You may need to install this package
+import { useRouter } from "next/navigation";
 
 export default function PrescriptionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   const [form, setForm] = useState({
     prescriptionid: '',
     patientid: '',
@@ -18,6 +20,7 @@ export default function PrescriptionForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
+    router.push("/doc_dashboard");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

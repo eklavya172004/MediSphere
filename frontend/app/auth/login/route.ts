@@ -1,4 +1,5 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { data } from "motion/react-client";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,7 +11,7 @@ export async function POST(req: NextRequest) {
   const password = formData.get("password") as string;
 
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data,error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
     let message = "Invalid credentials";
@@ -29,6 +30,23 @@ export async function POST(req: NextRequest) {
     loginUrl.searchParams.set("error", message);
     return NextResponse.redirect(loginUrl);
   }
+
+  const userID = data.user?.id;
+
+    const {data:doctor} = await supabase.from('doctor').select('*').eq("user_id",userID).single();
+    
+    const {data:receptionist} = await supabase.from('receptionist').select('*').eq("user_id",userID).single();
+    
+    const {data:patient} = await supabase.from('patient').select('*').eq("user_id",userID).single();
+
+
+    if(doctor || receptionist){
+      return NextResponse.redirect(new URL("/doc_dashboard", req.url));
+    }
+
+    if (patient) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
 
   return NextResponse.redirect(new URL("/", req.url));
 }

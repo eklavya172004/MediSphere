@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
     user_id: data.user.id,
     gender: "Other",                 // dummy value to satisfy schema
     name: `${firstname} ${lastname}`,
+    // role:"patient"
   });
 
   if (insertError) {

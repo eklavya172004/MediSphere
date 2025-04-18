@@ -1,5 +1,8 @@
 import { supabase } from "@/lib/supabase";
 import { NextResponse } from "next/server";
+// NextResponse: This helps return HTTP responses like JSON or redirects in a Next.js API route.
+
+
 
 export async function POST(request: Request) {
   try {

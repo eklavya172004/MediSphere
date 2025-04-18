@@ -29,7 +29,7 @@ const Hero = () => {
     <div className="relative">
         <FloatingNav navItems={navItems} />
         <BackgroundBeamsDemo/>
-
+        
         {/* </div> */}
     </div>
   )
