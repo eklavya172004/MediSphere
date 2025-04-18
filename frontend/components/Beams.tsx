@@ -9,7 +9,7 @@ export function BackgroundBeamsDemo() {
         <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-black to-neutral-400">
           Welcome to MediSphere
         </h1>
-        <p className="mt-6 text-lg md:text-xl text-neutral-300 leading-relaxed">
+        <p className="mt-6 text-lg md:text-xl text-neutral-600 leading-relaxed">
           A modern healthcare management system built to connect patients, doctors, and services seamlessly.
           From emergency response to patient records, MediSphere empowers institutions to deliver better care with efficiency and precision.
         </p>
