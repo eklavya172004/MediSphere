@@ -1,4 +1,3 @@
-// src/pages/About.jsx
 import React from 'react';
 import Link from 'next/link';
 
@@ -37,17 +36,18 @@ const features = [
 
 const About = () => {
   return (
-    <div className="bg-white text-gray-800">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      
       {/* Hero Section */}
       <div className="relative">
         <img
-          src="/ig.jpg" // Make sure this image is in the public/ folder
+          src="/img2.jpg" // Make sure this image is in the public/ folder
           alt="Healthcare Hero"
           className="w-full h-96 object-cover brightness-75"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-black text-center px-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
           <h1 className="text-4xl md:text-5xl font-bold">Empowering Healthcare with Technology</h1>
-          <p className="text-lg mt-4 max-w-2xl">
+          <p className="text-lg mt-4 max-w-2xl mx-auto">
             MediSphere revolutionizes how hospitals, doctors, and patients connect — efficiently and intelligently.
           </p>
         </div>
@@ -63,20 +63,21 @@ const About = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-6 md:px-20 bg-blue-50">
+      <section className="py-16 px-6 md:px-20 bg-gray-100">
         <h2 className="text-3xl font-bold mb-10 text-center">What We Offer</h2>
         <div className="grid md:grid-cols-3 gap-10">
           {features.map((feature, index) => (
-            <div key={index} className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+            <div key={index} className="bg-gray-200 p-6 rounded-2xl shadow hover:shadow-lg transition">
               <div className="text-4xl mb-4">{feature.icon}</div>
               <Link href="/" passHref>
-                <h3 className="text-xl font-semibold mb-2 text-blue-500 hover:underline">{feature.title}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-black hover:underline">{feature.title}</h3> {/* Set title color to black */}
               </Link>
               <p className="text-gray-700">{feature.description}</p>
             </div>
           ))}
         </div>
       </section>
+
     </div>
   );
 };
