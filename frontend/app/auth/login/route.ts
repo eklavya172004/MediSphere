@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
 
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("error", message);
+    
     return NextResponse.redirect(loginUrl);
   }
 
