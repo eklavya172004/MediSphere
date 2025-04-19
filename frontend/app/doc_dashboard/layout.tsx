@@ -2,8 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";  // Import both from next/navigation, not next/router
+import { ReactNode } from "react";
 
-export default function Dashboard({children}){
+
+type DashboardProps = {
+    children: ReactNode;
+  };
+
+export default function Dashboard({children}:DashboardProps){
     // const router = useRouter();
     const pathname = usePathname();
 
@@ -50,8 +56,8 @@ export default function Dashboard({children}){
                         Records
                     </Link>
                     <Link 
-                        href="/doc_dashboard/Payments" 
-                        className={`font-semibold ${pathname === '/doc_dashboard/Emergency' ? 'text-blue-600' : 'hover:text-blue-600'}`}
+                        href="/doc_dashboard/Payment" 
+                        className={`font-semibold ${pathname === '/doc_dashboard/Payment' ? 'text-blue-600' : 'hover:text-blue-600'}`}
                     >
                         Payments
                     </Link>

@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   const firstname = formData.get("first_name") as string;
   const lastname = formData.get("last_name") as string;
   const specialization = formData.get("specialization") as string;
-  const contact = formData.get("contact") as string;
+  const contact = formData.get("phone") as string;
 
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
