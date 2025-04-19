@@ -64,7 +64,9 @@ export async function POST(request: Request) {
     }
 
     // ✅ Redirect to the doctor landing page after success
-    return NextResponse.redirect(new URL('/doctor/landing', request.url), 303);
+    return NextResponse.json({ 
+      message: "Prescription created successfully" 
+    }, { status: 200 });
 
   } catch (error) {
     console.error('Failed to create prescription:', error);

@@ -20,9 +20,8 @@ export default function PrescriptionForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
-    router.push("/doc_dashboard");
   };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -36,12 +35,12 @@ export default function PrescriptionForm() {
           'Content-Type': 'application/json'
         }
       });
-
+      
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.error || 'Failed to submit prescription');
       }
-
+      
       const data = await res.json();
       toast.success(data.message || 'Prescription created successfully');
       
@@ -57,6 +56,7 @@ export default function PrescriptionForm() {
         consultationdate: ''
       });
       
+      router.push("/doc_dashboard/prescription");
     } catch (error) {
       console.error('Submission error:', error);
       toast.error(error instanceof Error ? error.message : 'Something went wrong');
