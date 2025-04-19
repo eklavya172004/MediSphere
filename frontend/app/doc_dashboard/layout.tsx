@@ -17,7 +17,7 @@ export default function Dashboard({children}){
                         href="/doc_dashboard/patient" 
                         className={`font-semibold ${pathname === '/doc_dashboard/patients' ? 'text-blue-600' : 'hover:text-blue-600'}`}
                     >
-                        Patient Records
+                        Patients
                     </Link>
                     <Link 
                         href="/doc_dashboard/prescription" 
@@ -30,6 +30,30 @@ export default function Dashboard({children}){
                         className={`font-semibold ${pathname === '/doc_dashboard/profile' ? 'text-blue-600' : 'hover:text-blue-600'}`}
                     >
                         Profile
+                    </Link>
+                    <Link 
+                        href="/doc_dashboard/Emergency" 
+                        className={`font-semibold ${pathname === '/doc_dashboard/Emergency' ? 'text-blue-600' : 'hover:text-blue-600'}`}
+                    >
+                        Emergency Case
+                    </Link>
+                    <Link 
+                        href="/doc_dashboard/Inventory" 
+                        className={`font-semibold ${pathname === '/doc_dashboard/Inventory' ? 'text-blue-600' : 'hover:text-blue-600'}`}
+                    >
+                        Inventory
+                    </Link>
+                    <Link 
+                        href="/doc_dashboard/Records" 
+                        className={`font-semibold ${pathname === '/doc_dashboard/Records' ? 'text-blue-600' : 'hover:text-blue-600'}`}
+                    >
+                        Records
+                    </Link>
+                    <Link 
+                        href="/doc_dashboard/Payments" 
+                        className={`font-semibold ${pathname === '/doc_dashboard/Emergency' ? 'text-blue-600' : 'hover:text-blue-600'}`}
+                    >
+                        Payments
                     </Link>
                     <Link 
                         href="/logout" 

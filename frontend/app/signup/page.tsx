@@ -99,15 +99,13 @@ export default function Signup() {
         )}
 
         {role === 'receptionist' && (
-          <>
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              required
-              className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
-            />
-          </>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            required
+            className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-md"
+          />
         )}
 
         <input
@@ -165,9 +163,10 @@ export default function Signup() {
           </>
         )}
 
+        {/* Sign Up button (black color) */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700"
+          className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800"
         >
           Sign Up
         </button>
