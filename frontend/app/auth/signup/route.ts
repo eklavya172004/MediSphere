@@ -1,11 +1,15 @@
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { createRouteHandlerClient, createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const cookieStore =  cookies(); // ✅ do NOT await this
-  const supabase = createServerActionClient({ cookies:   () => cookieStore }); // ✅ use like this
-
+  // const cookieStore =  cookies(); // ✅ do NOT await this
+  // const supabase = createServerActionClient({ cookies:   () => cookieStore }); // ✅ use like this
+  const cookieStore =  cookies();
+  const supabase = createServerActionClient({
+    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+  });
+  
   const formData = await req.formData();
 
   const email = formData.get("email") as string;

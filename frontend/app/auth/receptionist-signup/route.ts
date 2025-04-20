@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest) {
-    const cookieStore = await cookies();
+    // const cookieStore = await cookies();
     const formData = await req.formData();
 
     const email = formData.get("email") as string;
@@ -11,7 +11,12 @@ export async function POST(req:NextRequest) {
     const phone = formData.get("phone") as string;
     const name = formData.get("name") as string;
 
-    const supabase = createRouteHandlerClient({cookies: () => cookieStore});
+    // const supabase = createRouteHandlerClient({cookies: () => cookieStore});
+    const cookieStore =  cookies();
+    const supabase = createRouteHandlerClient({
+      cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+    });
+    
 
     const url = new URL(req.url);
 

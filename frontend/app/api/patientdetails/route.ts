@@ -4,8 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const cookieStore =  cookies();
-  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-
+  const supabase = createRouteHandlerClient({
+    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+  });
+  
   const {
     data: { user },
   } = await supabase.auth.getUser();

@@ -16,10 +16,11 @@ export async function GET(){
         consultationdate?: string;
       };    
 
-    const cookieStore = await cookies();
-    
-    const supabase = createRouteHandlerClient({cookies: () => cookieStore});
-
+      const cookieStore =  cookies();
+      const supabase = createRouteHandlerClient({
+        cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+      });
+      
     const {data:{user},error:userError} = await supabase.auth.getUser();
 
     // console.log(user);

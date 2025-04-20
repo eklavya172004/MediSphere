@@ -4,9 +4,11 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
 
-    const cookiesStore = await cookies();
-    const supabase = createRouteHandlerClient({cookies: () => cookiesStore});
-    
+  const cookieStore =  cookies();
+  const supabase = createRouteHandlerClient({
+    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+  });
+  
     const {
         data:{user},
         error:useError

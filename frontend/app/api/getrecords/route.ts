@@ -4,8 +4,11 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const supabase = createRouteHandlerClient({ cookies });
-
+    const cookieStore =  cookies();
+    const supabase = createRouteHandlerClient({
+      cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+    });
+    
   const { data, error } = await supabase.from('records').select('*');
 
   if (error) {

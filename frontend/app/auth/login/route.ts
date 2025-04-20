@@ -4,13 +4,18 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const cookieStore =  cookies();
+  // const cookieStore =  cookies();
   const formData = await req.formData();
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+  // const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+  const cookieStore =  cookies();
+  const supabase = createRouteHandlerClient({
+    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+  });
+  
   const { data,error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
