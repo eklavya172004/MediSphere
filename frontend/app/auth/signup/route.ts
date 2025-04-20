@@ -3,9 +3,6 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  
-  
-  
   const formData = await req.formData();
   
   const email = formData.get("email") as string;
@@ -19,7 +16,7 @@ export async function POST(req: NextRequest) {
   const patient_id = parseInt(formData.get("patient_id") as string);
   const problem = formData.get("problem") as string;
   
-  const cookieStore =  cookies()
+  const cookieStore =  cookies();
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
   const url = new URL(req.url);

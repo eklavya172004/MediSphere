@@ -46,11 +46,11 @@ export async function POST(req: NextRequest) {
 
 
     if(doctor || receptionist){
-      return NextResponse.redirect(new URL("/doc_dashboard", req.url));
+      return NextResponse.redirect(new URL("/doc_dashboard", req.url),303);
     }
 
     if (patient) {
-      return NextResponse.redirect(new URL("/profile", req.url));
+      return NextResponse.redirect(new URL("/profile", req.url),303);
     }
 
   return NextResponse.redirect(new URL("/", req.url));
