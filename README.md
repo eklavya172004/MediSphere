@@ -141,6 +141,4 @@ MIT License
 
 Made with ❤️ by [@eklavya172004](https://github.com/eklavya172004),[@navya448](https://github.com/navya448),[@Ridhima0403](https://github.com/Ridhima0403),[Piyush-M12](https://github.com/Piyush-M12)
 
----
 
-Want a markdown version or want this deployed as a `README.md` in your repo directly?
