@@ -3,9 +3,11 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const cookieStore =  cookies();
+
+
+  const cookieStore =await  cookies();
   const supabase = createRouteHandlerClient({
-    cookies: () => (cookieStore),  // Wrap in Promise.resolve()
+    cookies:  () => (cookieStore),  // Wrap in Promise.resolve()
   });
 
   const {
