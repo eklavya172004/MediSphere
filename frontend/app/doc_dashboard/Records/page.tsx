@@ -92,22 +92,30 @@ export default function RecordsPage() {
             className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
             required
           />
-          <input
-            type="date"
-            name="dateadmit"
-            value={form.dateadmit}
-            onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-            required
-          />
-          <input
-            type="date"
-            name="datedischarge"
-            value={form.datedischarge}
-            onChange={handleChange}
-            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-            required
-          />
+        <label className="flex flex-col">
+  <span className="mb-1 text-gray-700 font-medium">Date of Admission</span>
+  <input
+    type="date"
+    name="dateadmit"
+    value={form.dateadmit}
+    onChange={handleChange}
+    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+    required
+  />
+</label>
+
+<label className="flex flex-col">
+  <span className="mb-1 text-gray-700 font-medium">Date of Discharge</span>
+  <input
+    type="date"
+    name="datedischarge"
+    value={form.datedischarge}
+    onChange={handleChange}
+    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+    required
+  />
+</label>
+
           <input
             name="treatment"
             value={form.treatment}

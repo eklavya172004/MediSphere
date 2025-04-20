@@ -107,14 +107,33 @@ export default function InventoryPage() {
             <input type="number" name="quantity" value={form.quantity} onChange={handleChange} placeholder="Quantity" required className="border p-3 rounded-lg" />
             
             <div className="flex items-center gap-2">
-              <input type="checkbox" name="drug" checked={form.drug} onChange={handleChange} className="w-5 h-5" />
+            <label className="flex items-center gap-2">
+  <input
+    type="checkbox"
+    name="drug"
+    checked={form.drug}
+    onChange={handleChange}
+    className="w-5 h-5"
+  />
+  Drug
+</label>
+
               <label className="text-gray-700">Drug</label>
             </div>
 
-            <select name="available" value={form.available} onChange={handleChange} className="border p-3 rounded-lg">
-              <option value="Yes">Available</option>
-              <option value="No">Not Available</option>
-            </select>
+            <label htmlFor="available" className="block text-sm font-medium text-gray-700 mb-1">
+  Availability
+</label>
+<select
+  id="available"
+  name="available"
+  value={form.available}
+  onChange={handleChange}
+  className="border p-3 rounded-lg"
+>
+  <option value="Yes">Available</option>
+  <option value="No">Not Available</option>
+</select>
 
             <div className="md:col-span-2">
               <button type="submit" className="bg-black hover:bg-blue-700 text-white w-full py-3 rounded-lg font-semibold">

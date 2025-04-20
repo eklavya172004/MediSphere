@@ -101,6 +101,16 @@ export default function PatientProfile() {
           ))
         )}
       </div>
+
+      <form method="POST" action="/auth/logout" className="inline">
+  <button
+    type="submit"
+    className="text-sm text-gray-700 hover:text-red-600 font-semibold transition duration-200 ease-in-out bg-transparent border-none p-0 m-0 cursor-pointer"
+  >
+    Logout
+  </button>
+</form>
+
     </div>
   );
 }

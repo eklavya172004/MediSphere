@@ -69,12 +69,15 @@ export default function Dashboard({children}:DashboardProps){
                         Receptionist Profile
                     </Link>
 
-                    <Link 
-                        href="/logout" 
-                        className="hover:text-red-600 font-semibold"
-                    >
-                        Logout
-                    </Link>
+                    <form method="POST" action="/auth/logout" className="inline">
+                        <button
+                            type="submit"
+                            className="text-sm text-gray-700 hover:text-red-600 font-semibold transition duration-200 ease-in-out bg-transparent border-none p-0 m-0 cursor-pointer"
+                        >
+                            Logout
+                        </button>
+                        </form>
+
                 </nav>
             </aside>
 

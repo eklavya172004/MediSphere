@@ -89,14 +89,17 @@ export default function ShiftPage() {
             placeholder="Shift ID"
             className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <input
-            type="time"
-            name="starttime"
-            value={form.starttime}
-            onChange={handleChange}
-            required
-            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+       <label className="flex flex-col">
+  <span className="mb-1 text-gray-700 font-medium">Start Time</span>
+  <input
+    type="time"
+    name="starttime"
+    value={form.starttime}
+    onChange={handleChange}
+    required
+    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</label>
 
           {/* Checkboxes */}
           <div className="flex flex-wrap gap-4 col-span-1 md:col-span-2">
