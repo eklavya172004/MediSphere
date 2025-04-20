@@ -6,7 +6,7 @@ export async function GET() {
 
   const cookieStore =  cookies();
   const supabase = createRouteHandlerClient({
-    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
+    cookies: () => (cookieStore),  // Wrap in Promise.resolve()
   });
   
     const {
