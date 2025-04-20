@@ -1,46 +1,146 @@
-# 🏥 Medical Database Management System
+# 🏥 MediSphere – Comprehensive Healthcare Management System
 
-![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue.svg) ![Supabase](https://img.shields.io/badge/Backend-Supabase-29b5a2.svg) ![License](https://img.shields.io/badge/License-MIT-green.svg)
+MediSphere is a full-stack healthcare management platform built to streamline patient care, staff operations, prescriptions, emergency handling, and inventory tracking. Designed for hospitals, clinics, and healthcare providers, MediSphere provides a secure, efficient, and intuitive interface for doctors, patients, and receptionists.
 
-## 📋 Objective
-The project aims to design and implement a scalable and well-structured medical database system.  
-It manages patients, doctors, billing, prescriptions, room allocations, inventory, emergency cases, and staff records.  
-The database ensures data consistency, avoids redundancy, and maintains strong relationships between entities.
+## 🚀 Tech Stack
 
-## 📂 Project Overview
-- **Main Features:**
-  - Patient registration and management.
-  - Doctor management and specialization tracking.
-  - Room assignment and availability tracking.
-  - Medicine inventory management.
-  - Bill and payment processing.
-  - Prescription issuance with stock validation.
-  - Emergency cases and staff allocation management.
+**Frontend**:  
+- [Next.js 15](https://nextjs.org/) with App Router  
+- Tailwind CSS for responsive styling  
+- TypeScript for type safety  
 
-- **Key Highlights:**
-  - UUIDs are used for patient IDs for better scalability.
-  - Foreign key constraints to maintain referential integrity.
-  - Custom triggers and functions for automating stock checks and room availability.
-  - Fully normalized structure for efficient data handling.
+**Backend & Auth**:  
+- [Supabase](https://supabase.com/) – PostgreSQL DB, Auth, and API  
 
-## 🛠️ Technologies Used
-- Supabase (PostgreSQL-based backend)
-- SQL (DDL, DML, Triggers, Functions)
+**Database**:  
+- Normalized relational schema for patients, doctors, prescriptions, shifts, inventory, and more.
 
-## 🚀 How to Run
-1. Set up a Supabase project.
-2. Create the tables using the provided SQL schemas.
-3. Add the required functions and triggers.
-4. Insert data through SQL queries or API integrations.
+---
 
-## 📈 Future Improvements
-- Add a web dashboard for hospital staff.
-- Set up real-time notifications for low inventory.
-- Develop API endpoints for external integrations.
-- Implement authentication for different user roles (admin, doctor, receptionist).
+## 📦 Features
+
+### 👩‍⚕️ Doctor Dashboard
+- View and manage patient data  
+- Issue prescriptions and track history  
+- View assigned shifts and records  
+- Monitor and update inventory  
+- Handle emergency cases with timestamped logs
+
+### 🧑‍💼 Receptionist Portal
+- Manage patient records and registrations  
+- View shift details and working hours  
+- Assist doctors in updating records
+
+### 👨‍👩‍👧 Patient Portal
+- Secure login and personalized profile  
+- View prescriptions and diagnosis history  
+- Emergency contact and medical history tracking
+
+### ⚙️ Admin & System
+- Role-based authentication using Supabase  
+- Database relations with foreign keys  
+- Real-time interactions with Supabase client  
+- Clean, responsive UI using Tailwind CSS
+
+---
+
+## 🛠️ Installation
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/eklavya172004/MediSphere.git
+cd MediSphere
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Setup environment variables
+Create a `.env.local` file in the root and add:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### 4. Run the development server
+```bash
+npm run dev
+```
+
+---
+
+## 🗂️ Project Structure (Frontend)
+```
+/app
+  /login
+  /signup
+  /doc_dashboard
+    /patients
+    /prescriptions
+    /profile
+    /records
+    /shift
+    /inventory
+    /emergency
+    /receptionist
+  /profile (patient dashboard)
+  /api (route handlers)
+```
+
+---
+
+## 🧩 Database Schema Highlights
+
+- `patient`: Patient details + foreign key to `auth.users`
+- `doctor`: Doctor profile with specialization
+- `prescription`: Links to doctor, patient, medication, bill
+- `emergency_cases`: Time, location, nature, patient involved
+- `receptionist`, `shift`, `inventory`, `records`: Structured, normalized tables
+
+---
+
+## 🔐 Authentication & Authorization
+
+- Email/password-based authentication via Supabase
+- Role-specific redirection after login (`/doc_dashboard`, `/profile`, etc.)
+- Role assignment stored in Supabase tables (`doctor`, `receptionist`, `patient`)
+
+---
+
+## 🧪 Coming Soon
+
+- Admin Panel with analytics  
+- Notifications for appointments and emergencies  
+- Integration with SMS/email APIs  
+- QR-code based patient ID system  
+
+---
 
 ## 🤝 Contributing
-Pull requests are welcome. Feel free to suggest improvements or new features!
 
-## 📜 License
-This project is licensed under the **MIT License**.
+Pull requests are welcome! Please open issues for bugs, suggestions, or enhancements.
+
+```bash
+git checkout -b feature/YourFeature
+git commit -m "Add your feature"
+git push origin feature/YourFeature
+```
+
+---
+
+## 📃 License
+
+MIT License
+
+---
+
+## 🧑‍💻 Author
+
+Made with ❤️ by [@eklavya172004](https://github.com/eklavya172004),[@navya448](https://github.com/navya448),[[@Ridhima0403](https://github.com/Ridhima0403)],[[Piyush-M12](https://github.com/Piyush-M12)]
+
+---
+
+Want a markdown version or want this deployed as a `README.md` in your repo directly?
