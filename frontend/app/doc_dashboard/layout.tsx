@@ -35,7 +35,7 @@ export default function Dashboard({children}:DashboardProps){
                         href="/doc_dashboard/profile" 
                         className={`font-semibold ${pathname === '/doc_dashboard/profile' ? 'text-blue-600' : 'hover:text-blue-600'}`}
                     >
-                        Profile
+                        Doctor Profile
                     </Link>
                     <Link 
                         href="/doc_dashboard/Emergency" 
@@ -56,11 +56,19 @@ export default function Dashboard({children}:DashboardProps){
                         Records
                     </Link>
                     <Link 
-                        href="/doc_dashboard/Payment" 
-                        className={`font-semibold ${pathname === '/doc_dashboard/Payment' ? 'text-blue-600' : 'hover:text-blue-600'}`}
+                        href="/doc_dashboard/Shift" 
+                        className={`font-semibold ${pathname === '/doc_dashboard/Shift' ? 'text-blue-600' : 'hover:text-blue-600'}`}
                     >
-                        Payments
+                        Shift
                     </Link>
+
+                    <Link 
+                        href="/doc_dashboard/Receptionist" 
+                        className={`font-semibold ${pathname === '/doc_dashboard/Receptionist' ? 'text-blue-600' : 'hover:text-blue-600'}`}
+                    >
+                        Receptionist Profile
+                    </Link>
+
                     <Link 
                         href="/logout" 
                         className="hover:text-red-600 font-semibold"
