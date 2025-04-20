@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -37,6 +38,7 @@ export default function ShiftPage() {
     try {
       const res = await fetch('/api/shift', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, receptionistid: Number(form.receptionistid) }),
       });
       const data = await res.json();
@@ -70,47 +72,86 @@ export default function ShiftPage() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Manage Shifts</h1>
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Manage Shifts</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded shadow-md mb-10">
-        <input name="shiftid" value={form.shiftid} onChange={handleChange} required placeholder="Shift ID" className="w-full p-2 border rounded" />
-        <input
-  type="time"
-  name="starttime"
-  value={form.starttime}
-  onChange={handleChange}
-  required
-  placeholder="Start Time"
-  className="w-full p-2 border rounded"
-/>
+        {/* Form Section */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-6 rounded-2xl shadow-md grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
+        >
+          <input
+            name="shiftid"
+            value={form.shiftid}
+            onChange={handleChange}
+            required
+            placeholder="Shift ID"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="time"
+            name="starttime"
+            value={form.starttime}
+            onChange={handleChange}
+            required
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
 
-        <div className="flex gap-4">
-          <label><input type="checkbox" name="morning" checked={form.morning} onChange={handleChange} /> Morning</label>
-          <label><input type="checkbox" name="evening" checked={form.evening} onChange={handleChange} /> Evening</label>
-          <label><input type="checkbox" name="night" checked={form.night} onChange={handleChange} /> Night</label>
-        </div>
+          {/* Checkboxes */}
+          <div className="flex flex-wrap gap-4 col-span-1 md:col-span-2">
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="morning" checked={form.morning} onChange={handleChange} />
+              Morning
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="evening" checked={form.evening} onChange={handleChange} />
+              Evening
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="night" checked={form.night} onChange={handleChange} />
+              Night
+            </label>
+          </div>
 
-        <input name="receptionistid" type="number" value={form.receptionistid} onChange={handleChange} required placeholder="Receptionist ID" className="w-full p-2 border rounded" />
+          <input
+            name="receptionistid"
+            type="number"
+            value={form.receptionistid}
+            onChange={handleChange}
+            required
+            placeholder="Receptionist ID"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
 
-        <button type="submit" className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Shift</button>
-      </form>
+          <button
+            type="submit"
+            className="bg-black text-white py-3 px-6 rounded-lg col-span-1 md:col-span-2 hover:bg-blue-700 transition"
+          >
+            Add Shift
+          </button>
+        </form>
 
-      <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">All Shifts</h2>
-        {loading ? <p>Loading...</p> : (
-          <ul className="space-y-2">
+        {/* Shifts Section */}
+        <h2 className="text-2xl font-semibold text-gray-700 mb-6">All Shifts</h2>
+
+        {loading ? (
+          <p className="text-center text-gray-500">Loading...</p>
+        ) : shifts.length === 0 ? (
+          <p className="text-center text-gray-500">No shifts available.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {shifts.map((shift) => (
-              <li key={shift.shiftid} className="border p-4 rounded">
-                <p><strong>Shift ID:</strong> {shift.shiftid}</p>
-                <p><strong>Start Time:</strong> {shift.starttime}</p>
-                <p><strong>Receptionist ID:</strong> {shift.receptionistid}</p>
-                <p><strong>Morning:</strong> {shift.morning ? 'Yes' : 'No'}</p>
-                <p><strong>Evening:</strong> {shift.evening ? 'Yes' : 'No'}</p>
-                <p><strong>Night:</strong> {shift.night ? 'Yes' : 'No'}</p>
-              </li>
+              <div key={shift.shiftid} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+                <p className="text-gray-700"><span className="font-semibold">Shift ID:</span> {shift.shiftid}</p>
+                <p className="text-gray-700"><span className="font-semibold">Start Time:</span> {shift.starttime}</p>
+                <p className="text-gray-700"><span className="font-semibold">Receptionist ID:</span> {shift.receptionistid}</p>
+                <p className="text-gray-700"><span className="font-semibold">Morning:</span> {shift.morning ? 'Yes' : 'No'}</p>
+                <p className="text-gray-700"><span className="font-semibold">Evening:</span> {shift.evening ? 'Yes' : 'No'}</p>
+                <p className="text-gray-700"><span className="font-semibold">Night:</span> {shift.night ? 'Yes' : 'No'}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>

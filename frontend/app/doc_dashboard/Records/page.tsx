@@ -75,35 +75,92 @@ export default function RecordsPage() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Patient Records</h1>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <input name="recordid" value={form.recordid} onChange={handleChange} placeholder="Record ID" className="border p-2 rounded" required />
-        <input type="date" name="dateadmit" value={form.dateadmit} onChange={handleChange} placeholder="Date Admit" className="border p-2 rounded" required />
-        <input type="date" name="datedischarge" value={form.datedischarge} onChange={handleChange} placeholder="Date Discharge" className="border p-2 rounded" required />
-        <input name="treatment" value={form.treatment} onChange={handleChange} placeholder="Treatment" className="border p-2 rounded" required />
-        <input name="doctorid" value={form.doctorid} onChange={handleChange} placeholder="Doctor ID" className="border p-2 rounded" required />
-        <input name="patientid" value={form.patientid} onChange={handleChange} placeholder="Patient ID" className="border p-2 rounded" required />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded col-span-1 md:col-span-2">Submit</button>
-      </form>
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Patient Records</h1>
 
-      <h2 className="text-xl font-semibold mb-4">All Records</h2>
-      <ul className="space-y-4">
+        {/* Form Section */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-6 rounded-2xl shadow-md grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
+        >
+          <input
+            name="recordid"
+            value={form.recordid}
+            onChange={handleChange}
+            placeholder="Record ID"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+          <input
+            type="date"
+            name="dateadmit"
+            value={form.dateadmit}
+            onChange={handleChange}
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+          <input
+            type="date"
+            name="datedischarge"
+            value={form.datedischarge}
+            onChange={handleChange}
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+          <input
+            name="treatment"
+            value={form.treatment}
+            onChange={handleChange}
+            placeholder="Treatment"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+          <input
+            name="doctorid"
+            value={form.doctorid}
+            onChange={handleChange}
+            placeholder="Doctor ID"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+          <input
+            name="patientid"
+            value={form.patientid}
+            onChange={handleChange}
+            placeholder="Patient ID"
+            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+
+          <button
+            type="submit"
+            className="bg-black text-white py-3 px-6 rounded-lg col-span-1 md:col-span-2 hover:bg-gray-800 transition"
+          >
+            Submit Record
+          </button>
+        </form>
+
+        {/* Records Section */}
+        <h2 className="text-2xl font-semibold text-gray-700 mb-6">All Records</h2>
+
         {records.length === 0 ? (
-          <p>No records found.</p>
+          <p className="text-center text-gray-500">No records available.</p>
         ) : (
-          records.map((r) => (
-            <li key={r.recordid} className="bg-white p-4 shadow rounded">
-              <p><strong>Record ID:</strong> {r.recordid}</p>
-              <p><strong>Admit Date:</strong> {r.dateadmit}</p>
-              <p><strong>Discharge Date:</strong> {r.datedischarge}</p>
-              <p><strong>Treatment:</strong> {r.treatment}</p>
-              <p><strong>Doctor ID:</strong> {r.doctorid}</p>
-              <p><strong>Patient ID:</strong> {r.patientid}</p>
-            </li>
-          ))
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {records.map((r: any) => (
+              <div key={r.recordid} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+                <p className="text-gray-700"><span className="font-semibold">Record ID:</span> {r.recordid}</p>
+                <p className="text-gray-700"><span className="font-semibold">Admit Date:</span> {r.dateadmit}</p>
+                <p className="text-gray-700"><span className="font-semibold">Discharge Date:</span> {r.datedischarge}</p>
+                <p className="text-gray-700"><span className="font-semibold">Treatment:</span> {r.treatment}</p>
+                <p className="text-gray-700"><span className="font-semibold">Doctor ID:</span> {r.doctorid}</p>
+                <p className="text-gray-700"><span className="font-semibold">Patient ID:</span> {r.patientid}</p>
+              </div>
+            ))}
+          </div>
         )}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -64,42 +64,87 @@ export default function EmergencyCasePage() {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6">Emergency Case</h1>
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-6">Emergency Case</h1>
 
-      <form onSubmit={handleSubmit} className="mb-10 space-y-4 bg-white p-6 rounded shadow">
-        <input type="text" name="emergencyid" placeholder="Emergency ID" value={form.emergencyid} onChange={handleChange} className="w-full border p-2 rounded" required />
+      <form onSubmit={handleSubmit} className="mb-10 space-y-4 bg-white p-6 rounded-xl shadow-md">
+        <input
+          type="text"
+          name="emergencyid"
+          placeholder="Emergency ID"
+          value={form.emergencyid}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+
         <label className="block">
-  <span className="text-sm text-gray-600">Date & Time</span>
-  <input
-    type="datetime-local"
-    name="datetime"
-    value={form.datetime}
-    onChange={handleChange}
-    className="w-full border p-2 rounded mt-1"
-    required
-  />
-</label>
-        <input type="text" name="location" placeholder="Location" value={form.location} onChange={handleChange} className="w-full border p-2 rounded" required />
-        <input type="text" name="natureofdisaster" placeholder="Nature of Disaster" value={form.natureofdisaster} onChange={handleChange} className="w-full border p-2 rounded" required />
-        <input type="text" name="patientid" placeholder="Patient ID" value={form.patientid} onChange={handleChange} className="w-full border p-2 rounded" required />
-        <button type="submit" disabled={loading} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          <span className="text-sm text-gray-600">Date & Time</span>
+          <input
+            type="datetime-local"
+            name="datetime"
+            value={form.datetime}
+            onChange={handleChange}
+            className="w-full border p-2 rounded mt-1"
+            required
+          />
+        </label>
+
+        <input
+          type="text"
+          name="location"
+          placeholder="Location"
+          value={form.location}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="natureofdisaster"
+          placeholder="Nature of Disaster"
+          value={form.natureofdisaster}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="patientid"
+          placeholder="Patient ID"
+          value={form.patientid}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+          required
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        >
           {loading ? "Submitting..." : "Submit Emergency Case"}
         </button>
       </form>
 
-      <h2 className="text-xl font-semibold mb-4">Reported Emergency Cases</h2>
-      <ul className="space-y-4">
+      <h2 className="text-2xl font-semibold mb-4">Reported Emergency Cases</h2>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {cases.map((ec) => (
-          <li key={ec.emergencyid} className="p-4 bg-white rounded shadow">
-            <p><strong>ID:</strong> {ec.emergencyid}</p>
-            <p><strong>Date & Time:</strong> {ec.datetime}</p>
-            <p><strong>Location:</strong> {ec.location}</p>
-            <p><strong>Disaster:</strong> {ec.natureofdisaster}</p>
-            <p><strong>Patient ID:</strong> {ec.patientid}</p>
-          </li>
+          <div key={ec.emergencyid} className="p-4 bg-white rounded-xl shadow-md border">
+            <p className="mb-1"><strong>ID:</strong> {ec.emergencyid}</p>
+            <p className="mb-1"><strong>Date & Time:</strong> {new Date(ec.datetime).toLocaleString()}</p>
+            <p className="mb-1"><strong>Location:</strong> {ec.location}</p>
+            <p className="mb-1 flex items-center gap-2">
+              <strong>Disaster:</strong>
+              <span className="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs">
+                {ec.natureofdisaster}
+              </span>
+            </p>
+            <p className="mb-1"><strong>Patient ID:</strong> {ec.patientid}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
