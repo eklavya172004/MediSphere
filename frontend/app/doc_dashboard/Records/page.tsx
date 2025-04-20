@@ -1,8 +1,16 @@
-// app/doc_dashboard/Records/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+
+interface Record {
+  recordid: string;
+  dateadmit: string;
+  datedischarge: string;
+  treatment: string;
+  doctorid: string;
+  patientid: string;
+}
 
 export default function RecordsPage() {
   const [form, setForm] = useState({
@@ -14,7 +22,7 @@ export default function RecordsPage() {
     patientid: '',
   });
 
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState<Record[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,8 +46,12 @@ export default function RecordsPage() {
       } else {
         toast.error(data.error || 'Error submitting record');
       }
-    } catch (error) {
-      toast.error('Network error');
+    } catch (error: unknown) { // Specify `unknown` type here
+      if (error instanceof Error) {
+        toast.error(error.message); // Safely access `message` property
+      } else {
+        toast.error('Network error');
+      }
     }
   };
 
@@ -49,8 +61,12 @@ export default function RecordsPage() {
       const data = await res.json();
       if (res.ok) setRecords(data.records);
       else toast.error(data.error || 'Failed to load records');
-    } catch (error) {
-      toast.error('Failed to fetch records');
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            toast.error('failed to fetch'); // Safely access `message` property
+          } else {
+            toast.error('Network error');
+          }
     }
   };
 
@@ -73,16 +89,20 @@ export default function RecordsPage() {
 
       <h2 className="text-xl font-semibold mb-4">All Records</h2>
       <ul className="space-y-4">
-        {records.map((r: any) => (
-          <li key={r.recordid} className="bg-white p-4 shadow rounded">
-            <p><strong>Record ID:</strong> {r.recordid}</p>
-            <p><strong>Admit Date:</strong> {r.dateadmit}</p>
-            <p><strong>Discharge Date:</strong> {r.datedischarge}</p>
-            <p><strong>Treatment:</strong> {r.treatment}</p>
-            <p><strong>Doctor ID:</strong> {r.doctorid}</p>
-            <p><strong>Patient ID:</strong> {r.patientid}</p>
-          </li>
-        ))}
+        {records.length === 0 ? (
+          <p>No records found.</p>
+        ) : (
+          records.map((r) => (
+            <li key={r.recordid} className="bg-white p-4 shadow rounded">
+              <p><strong>Record ID:</strong> {r.recordid}</p>
+              <p><strong>Admit Date:</strong> {r.dateadmit}</p>
+              <p><strong>Discharge Date:</strong> {r.datedischarge}</p>
+              <p><strong>Treatment:</strong> {r.treatment}</p>
+              <p><strong>Doctor ID:</strong> {r.doctorid}</p>
+              <p><strong>Patient ID:</strong> {r.patientid}</p>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );

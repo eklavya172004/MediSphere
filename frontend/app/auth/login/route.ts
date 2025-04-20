@@ -1,10 +1,10 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { data } from "motion/react-client";
+// import { data } from "motion/react-client";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const cookieStore = await cookies();
+  const cookieStore =  cookies();
   const formData = await req.formData();
 
   const email = formData.get("email") as string;

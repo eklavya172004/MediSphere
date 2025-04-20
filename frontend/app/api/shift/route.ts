@@ -22,7 +22,12 @@ export async function POST(request: Request) {
     if (error) throw error;
 
     return NextResponse.json({ message: "Shift added successfully" }, { status: 201 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err) {
+    // Ensure `err` is of type `Error` to access `message`
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+    // If it's not an instance of Error, return a generic message
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const cookieStore = await cookies(); // ✅ do NOT await this
+  const cookieStore =  cookies(); // ✅ do NOT await this
   const supabase = createServerActionClient({ cookies:   () => cookieStore }); // ✅ use like this
 
   const formData = await req.formData();

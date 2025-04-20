@@ -33,7 +33,7 @@ export default function ReceptionistProfilePage() {
           setReceptionist(data.receptionist);
           setShift(data.shift);
         }
-      } catch (err) {
+      } catch {
         setError("Failed to fetch data.");
       } finally {
         setLoading(false);
