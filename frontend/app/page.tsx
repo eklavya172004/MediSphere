@@ -72,6 +72,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Our Team Section */}
+      <section className="py-16 bg-white text-black">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold mb-8">Meet Our Team</h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="flex flex-col items-center">
+              <div className="h-32 w-32 bg-gray-200 rounded-full overflow-hidden">
+                <img src="/image.png" alt="Team Member 1" className="object-cover w-full h-full" />
+              </div>
+              <p className="mt-4 font-semibold text-lg">Eklavya Nath</p>
+              <p className="text-sm text-gray-500">2310110111</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="h-32 w-32 bg-gray-200 rounded-full overflow-hidden">
+                <img src="/navya.jpg" alt="Team Member 2" className="object-cover w-full h-full" />
+              </div>
+              <p className="mt-4 font-semibold text-lg">Navya Jain</p>
+              <p className="text-sm text-gray-500">2310110196</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="h-32 w-32 bg-gray-200 rounded-full overflow-hidden">
+                <img src="/rid.jpg" alt="Team Member 3" className="object-cover w-full h-full" />
+              </div>
+              <p className="mt-4 font-semibold text-lg">Ridhima Garg</p>
+              <p className="text-sm text-gray-500">2310110242</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="h-32 w-32 bg-gray-200 rounded-full overflow-hidden">
+                <img src="/piu.jpg" alt="Team Member 4" className="object-cover w-full h-full" />
+              </div>
+              <p className="mt-4 font-semibold text-lg">Piyush Mahajan</p>
+              <p className="text-sm text-gray-500">2310110219</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-16 bg-gray-100 text-black">
         <div className="max-w-4xl mx-auto px-6">
