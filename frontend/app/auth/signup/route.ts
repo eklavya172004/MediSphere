@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
   const lastname = formData.get("last_name") as string;
   const dob = formData.get("dob") as string;
   const phone = (formData.get("phone") as string);
+  const gender = (formData.get("gender") as string);
   const relationship = formData.get("relationship") as string;
   const patient_id = parseInt(formData.get("patient_id") as string);
 
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest) {
     phone,
     relationship,
     user_id: data.user.id,
-    gender: "Other",                 // dummy value to satisfy schema
+    gender,                 // dummy value to satisfy schema
     name: `${firstname} ${lastname}`,
     // role:"patient"
   });
@@ -53,5 +54,5 @@ export async function POST(req: NextRequest) {
 
 
   }
-  return NextResponse.redirect(url.origin, { status: 301 });
+  return NextResponse.redirect(url.origin+"/login", { status: 301 });
 }

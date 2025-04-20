@@ -3,167 +3,100 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-type PatientData = {
+interface Patient {
+  patientid: number;
   firstname: string;
   lastname: string;
-  name: string;
   gender: string;
   dob: string;
   phone: string;
   relationship: string;
-  roomid: number;
-  patientid: number;
-};
+}
 
-type Prescription = {
+interface Prescription {
   prescriptionid: number;
+  patientid: number;
   doctorid: number;
   dosageinstruction: string;
   issuedate: string;
   courseduration: string;
-  medid: number;
   quantity: number;
   consultationdate: string;
-};
+}
 
-export default function Dashboard() {
-  const router = useRouter();
-  const [patient, setPatient] = useState<PatientData | null>(null);
+export default function PatientProfile() {
+  const [patient, setPatient] = useState<Patient | null>(null);
   const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
-    // Simulate fetching patient and prescription data
-    const fetchedPatient: PatientData = {
-      firstname: 'John',
-      lastname: 'Doe',
-      name: 'John Doe',
-      gender: 'Male',
-      dob: '1995-05-20',
-      phone: '9876543210',
-      relationship: 'Self',
-      roomid: 102,
-      patientid: 123456,
+    const fetchDetails = async () => {
+      try {
+        const res = await fetch('/api/patientdetails');
+        if (!res.ok) throw new Error('Failed to fetch patient details');
+
+        const data = await res.json();
+
+        if (data.patient) setPatient(data.patient);
+        if (Array.isArray(data.prescriptions)) setPrescriptions(data.prescriptions);
+      } catch (err: any) {
+        setError(err.message || 'Something went wrong');
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const fetchedPrescriptions: Prescription[] = [
-      {
-        prescriptionid: 1,
-        doctorid: 101,
-        dosageinstruction: 'Take 1 tablet twice daily after meals',
-        issuedate: '2025-04-18T10:30:00Z',
-        courseduration: '5 days',
-        medid: 501,
-        quantity: 10,
-        consultationdate: '2025-04-18',
-      },
-      {
-        prescriptionid: 2,
-        doctorid: 102,
-        dosageinstruction: 'Apply cream once at night',
-        issuedate: '2025-04-10T14:00:00Z',
-        courseduration: '2 weeks',
-        medid: 502,
-        quantity: 1,
-        consultationdate: '2025-04-10',
-      },
-    ];
-
-    setPatient(fetchedPatient);
-    setPrescriptions(fetchedPrescriptions);
+    fetchDetails();
   }, []);
 
-  const handleLogout = () => {
-    router.push('/auth/login');
-  };
+  if (loading) return <div className="text-center mt-10">Loading...</div>;
+  if (error) return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold mb-6 text-center">Patient Dashboard</h1>
+    <div className="p-6 max-w-4xl mx-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Patient Profile</h1>
+        <button
+          onClick={() => router.push('/')}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        >
+          Go to Home Page
+        </button>
+      </div>
 
-        {patient ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            <div>
-              <p className="font-semibold">First Name:</p>
-              <p className="mb-4">{patient.firstname}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Last Name:</p>
-              <p className="mb-4">{patient.lastname}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Full Name:</p>
-              <p className="mb-4">{patient.name}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Gender:</p>
-              <p className="mb-4">{patient.gender}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Date of Birth:</p>
-              <p className="mb-4">{patient.dob}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Phone Number:</p>
-              <p className="mb-4">{patient.phone}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Relationship:</p>
-              <p className="mb-4">{patient.relationship}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Room ID:</p>
-              <p className="mb-4">{patient.roomid}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Patient ID:</p>
-              <p className="mb-4">{patient.patientid}</p>
-            </div>
-          </div>
-        ) : (
-          <p className="text-center mb-10">Loading patient information...</p>
-        )}
-
-        {/* Prescriptions */}
-        <h2 className="text-xl font-bold mb-4">My Prescriptions</h2>
-        {prescriptions.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {prescriptions.map((prescription) => (
-              <div
-                key={prescription.prescriptionid}
-                className="border border-gray-300 p-4 rounded-lg shadow-sm"
-              >
-                <p><span className="font-semibold">Prescription ID:</span> {prescription.prescriptionid}</p>
-                <p><span className="font-semibold">Doctor ID:</span> {prescription.doctorid}</p>
-                <p><span className="font-semibold">Medication ID:</span> {prescription.medid}</p>
-                <p><span className="font-semibold">Dosage:</span> {prescription.dosageinstruction}</p>
-                <p><span className="font-semibold">Course Duration:</span> {prescription.courseduration}</p>
-                <p><span className="font-semibold">Quantity:</span> {prescription.quantity}</p>
-                <p><span className="font-semibold">Consultation Date:</span> {prescription.consultationdate}</p>
-                <p><span className="font-semibold">Issued On:</span> {new Date(prescription.issuedate).toLocaleString()}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-center">No prescriptions available.</p>
-        )}
-
-        <div className="mt-10 text-center">
-          <button
-            onClick={handleLogout}
-            className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800"
-          >
-            Logout
-          </button>
+      {patient ? (
+        <div className="bg-white p-4 rounded-lg shadow mb-6 space-y-2">
+          <p><strong>Patient ID:</strong> {patient.patientid}</p>
+          <p><strong>Name:</strong> {patient.firstname} {patient.lastname}</p>
+          <p><strong>Gender:</strong> {patient.gender}</p>
+          <p><strong>Date of Birth:</strong> {patient.dob}</p>
+          <p><strong>Phone:</strong> {patient.phone}</p>
+          <p><strong>Relationship:</strong> {patient.relationship}</p>
         </div>
+      ) : (
+        <p className="text-gray-600 mb-4">No patient data found.</p>
+      )}
+
+      <h2 className="text-xl font-semibold mb-2">Prescriptions</h2>
+      <div className="space-y-4">
+        {prescriptions.length === 0 ? (
+          <p className="text-gray-600">No prescriptions found.</p>
+        ) : (
+          prescriptions.map((p) => (
+            <div key={p.prescriptionid} className="bg-gray-50 p-4 rounded-md border">
+              <p><strong>Prescription ID:</strong> {p.prescriptionid}</p>
+              <p><strong>Doctor ID:</strong> {p.doctorid}</p>
+              <p><strong>Dosage Instruction:</strong> {p.dosageinstruction}</p>
+              <p><strong>Issue Date:</strong> {p.issuedate}</p>
+              <p><strong>Course Duration:</strong> {p.courseduration}</p>
+              <p><strong>Quantity:</strong> {p.quantity}</p>
+              <p><strong>Consultation Date:</strong> {p.consultationdate}</p>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

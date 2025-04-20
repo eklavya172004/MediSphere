@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (patient) {
-      return NextResponse.redirect(new URL("/", req.url));
+      return NextResponse.redirect(new URL("/profile", req.url));
     }
 
   return NextResponse.redirect(new URL("/", req.url));
