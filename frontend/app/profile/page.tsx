@@ -1,5 +1,4 @@
-'use client';
-
+'use client'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -42,8 +41,12 @@ export default function PatientProfile() {
 
         if (data.patient) setPatient(data.patient);
         if (Array.isArray(data.prescriptions)) setPrescriptions(data.prescriptions);
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong');
+      } catch (err: unknown) { // Specify `unknown` type here
+        if (err instanceof Error) {
+          setError(err.message); // Safely access `message` property
+        } else {
+          setError('Something went wrong');
+        }
       } finally {
         setLoading(false);
       }

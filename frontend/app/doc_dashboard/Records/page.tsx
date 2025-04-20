@@ -3,6 +3,15 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
+interface Record {
+  recordid: string;
+  dateadmit: string;
+  datedischarge: string;
+  treatment: string;
+  doctorid: string;
+  patientid: string;
+}
+
 export default function RecordsPage() {
   const [form, setForm] = useState({
     recordid: '',
@@ -13,7 +22,7 @@ export default function RecordsPage() {
     patientid: '',
   });
 
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState<Record[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -37,8 +46,12 @@ export default function RecordsPage() {
       } else {
         toast.error(data.error || 'Error submitting record');
       }
-    } catch (error) {
-      toast.error('Network error');
+    } catch (error: unknown) { // Specify `unknown` type here
+      if (error instanceof Error) {
+        toast.error(error.message); // Safely access `message` property
+      } else {
+        toast.error('Network error');
+      }
     }
   };
 
@@ -48,8 +61,12 @@ export default function RecordsPage() {
       const data = await res.json();
       if (res.ok) setRecords(data.records);
       else toast.error(data.error || 'Failed to load records');
-    } catch (error) {
-      toast.error('Failed to fetch records');
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            toast.error('failed to fetch'); // Safely access `message` property
+          } else {
+            toast.error('Network error');
+          }
     }
   };
 

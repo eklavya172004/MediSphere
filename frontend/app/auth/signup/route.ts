@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const cookieStore = await cookies(); // ✅ do NOT await this
+  const cookieStore =  cookies(); // ✅ do NOT await this
   const supabase = createServerActionClient({ cookies:   () => cookieStore }); // ✅ use like this
 
   const formData = await req.formData();
@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
   const gender = (formData.get("gender") as string);
   const relationship = formData.get("relationship") as string;
   const patient_id = parseInt(formData.get("patient_id") as string);
+  const problem = formData.get("problem") as string;
 
   const url = new URL(req.url);
 
@@ -43,6 +44,7 @@ export async function POST(req: NextRequest) {
     user_id: data.user.id,
     gender,                 // dummy value to satisfy schema
     name: `${firstname} ${lastname}`,
+    problem
     // role:"patient"
   });
 

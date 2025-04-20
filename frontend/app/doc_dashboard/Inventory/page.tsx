@@ -1,10 +1,30 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent, FormEvent, useCallback } from "react";
+
+// Define the interface for inventory items
+interface InventoryItem {
+  inventoryid: string;
+  supplierinsuranceid: string;
+  itemname: string;
+  quantity: number;
+  drug: boolean;
+  available: "Yes" | "No";
+}
+
+// Define the type for form state
+interface FormState {
+  inventoryid: string;
+  supplierinsuranceid: string;
+  itemname: string;
+  quantity: number;
+  drug: boolean;
+  available: "Yes" | "No";
+}
 
 export default function InventoryPage() {
-  const [inventory, setInventory] = useState<any[]>([]);
-  const [form, setForm] = useState({
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [form, setForm] = useState<FormState>({
     inventoryid: "",
     supplierinsuranceid: "",
     itemname: "",
@@ -12,37 +32,46 @@ export default function InventoryPage() {
     drug: false,
     available: "Yes"
   });
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
 
-  const fetchInventory = async () => {
-    const res = await fetch("/api/getinventory");
-    const result = await res.json();
-    setInventory(result.inventory || []);
-  };
+  // Fetch inventory items
+  const fetchInventory = useCallback(async () => {
+    try {
+      const res = await fetch("/api/getinventory");
+      if (!res.ok) throw new Error("Failed to fetch inventory");
+      const result = await res.json();
+      setInventory(result.inventory || []);
+    } catch (error) {
+      console.error("Error fetching inventory:", error);
+    }
+  }, []);
 
   useEffect(() => {
     fetchInventory();
-  }, []);
+  }, [fetchInventory]);
 
-  const handleChange = (e: any) => {
-    const { name, value, type, checked } = e.target;
-    setForm({
-      ...form,
-      [name]: type === "checkbox" ? checked : value
-    });
+  // Handle form field changes
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type, checked } = e.target as HTMLInputElement; // Cast e.target to HTMLInputElement
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: type === "checkbox" ? checked : value // No need for "checked as boolean" after casting e.target
+    }));
   };
-
-  const handleSubmit = async (e: any) => {
+  // Handle form submission
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await fetch("/api/inventory", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form)
-    });
+    try {
+      const res = await fetch("/api/inventory", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
 
-    if (res.ok) {
-      fetchInventory();
+      if (!res.ok) throw new Error("Failed to add inventory");
+
+      fetchInventory(); // Refresh the inventory list after adding
       setForm({
         inventoryid: "",
         supplierinsuranceid: "",
@@ -51,6 +80,8 @@ export default function InventoryPage() {
         drug: false,
         available: "Yes"
       });
+    } catch (error) {
+      console.error("Error submitting inventory:", error);
     }
   };
 
