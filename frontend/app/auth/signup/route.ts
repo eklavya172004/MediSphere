@@ -3,15 +3,11 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  // const cookieStore =  cookies(); // ✅ do NOT await this
-  // const supabase = createServerActionClient({ cookies:   () => cookieStore }); // ✅ use like this
-  const cookieStore =  cookies();
-  const supabase = createServerActionClient({
-    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
-  });
+  
+  
   
   const formData = await req.formData();
-
+  
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const firstname = formData.get("first_name") as string;
@@ -22,6 +18,9 @@ export async function POST(req: NextRequest) {
   const relationship = formData.get("relationship") as string;
   const patient_id = parseInt(formData.get("patient_id") as string);
   const problem = formData.get("problem") as string;
+  
+  const cookieStore =  cookies()
+  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
   const url = new URL(req.url);
 
@@ -32,11 +31,12 @@ export async function POST(req: NextRequest) {
       emailRedirectTo: `${url.origin}/auth/callback`,
     },
   });
+  
+  console.log(data)
 
   if (error || !data.user) {
     return NextResponse.redirect(`${url.origin}/`, { status: 301 });
   }
-
 
   const { error: insertError } = await supabase.from("patient").insert({
     patientid: patient_id,

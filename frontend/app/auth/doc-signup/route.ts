@@ -17,10 +17,9 @@ export async function POST(req: NextRequest) {
   const contact = formData.get("phone") as string;
 
   // const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-  const cookieStore =  cookies();
-  const supabase = createRouteHandlerClient({
-    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
-  });
+  const cookieStore =  cookies()
+  const supabase = createRouteHandlerClient({ cookies:  () => cookieStore });
+
   
   const url = new URL(req.url);
 

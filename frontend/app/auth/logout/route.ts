@@ -3,10 +3,9 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-    const cookieStore =  cookies();
-  const supabase = createRouteHandlerClient({
-    cookies: () => Promise.resolve(cookieStore),  // Wrap in Promise.resolve()
-  });
+    const cookieStore =  cookies()
+    const supabase = createRouteHandlerClient({ cookies:  () => cookieStore });
+  
   
 //   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
