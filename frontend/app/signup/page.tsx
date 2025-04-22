@@ -1,9 +1,21 @@
 'use client';
-import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Signup() {
   const [role, setRole] = useState<'patient' | 'doctor' | 'receptionist'>('patient');
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+  const [signupError, setSignupError] = useState<string | null>(null);
+
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error) {
+      setSignupError(decodeURIComponent(error));
+    }
+  }, [searchParams]);
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRole(e.target.value as 'patient' | 'doctor' | 'receptionist');
@@ -46,6 +58,12 @@ export default function Signup() {
         <h2 className="text-xl font-bold mb-4 text-center">
           Create {role.charAt(0).toUpperCase() + role.slice(1)} Account
         </h2>
+
+        {signupError && (
+        <div className="mb-4 p-3 text-sm text-red-700 bg-red-100 rounded">
+        {signupError}
+        </div>
+    )}
 
         {/* Role selector */}
         <label className="block mb-3">

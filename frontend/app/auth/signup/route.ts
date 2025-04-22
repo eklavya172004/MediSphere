@@ -31,10 +31,13 @@ export async function POST(req: NextRequest) {
   
   console.log(data)
 
-  if (error || !data.user) {
-    return NextResponse.redirect(`${url.origin}/`, { status: 301 });
-  }
 
+  if (error || !data.user) {
+    const errorUrl = new URL("/signup", req.url);
+    errorUrl.searchParams.set("error", error?.message || "Signup failed. Please try again.");
+    return NextResponse.redirect(errorUrl, { status: 303 });
+  }
+  
   const { error: insertError } = await supabase.from("patient").insert({
     patientid: patient_id,
     firstname,
@@ -50,12 +53,10 @@ export async function POST(req: NextRequest) {
   });
 
   if (insertError) {
-    console.error("Error inserting patient:", insertError,data.user.id);  // Log the full error object
-    return NextResponse.redirect(url.origin + "/login", {
-      status: 301,
-    });
-
-
+    const errorUrl = new URL("/signup", req.url);
+    errorUrl.searchParams.set("error", insertError.message || "Could not save patient data.");
+    return NextResponse.redirect(errorUrl, { status: 303 });
   }
-  return NextResponse.redirect(url.origin+"/login", { status: 301 });
+
+  return NextResponse.redirect(url.origin + "/login", { status: 301 });
 }

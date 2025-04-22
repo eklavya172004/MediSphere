@@ -1,6 +1,21 @@
 'use client';
 
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
 export default function Login() {
+
+  const searchParams = useSearchParams();
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const errorMsg = searchParams.get("error");
+    if (errorMsg) {
+      setError(errorMsg);
+    }
+  }, [searchParams]);
+
+
   return (
     <div className="bg-blue-50 text-gray-800 min-h-screen flex items-center justify-center px-4">
       <form
@@ -10,6 +25,12 @@ export default function Login() {
       >
         <h2 className="text-2xl font-bold mb-6 text-center text-black">
           Login to Your Account
+
+          {error && (
+        <div className="error-message bg-red-100 text-red-700 p-2 rounded">
+          {error}
+        </div>
+      )}
         </h2>
 
         <input

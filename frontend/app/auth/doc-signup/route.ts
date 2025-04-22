@@ -30,7 +30,9 @@ export async function POST(req: NextRequest) {
   });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    const errorUrl = new URL("/signup", req.url);
+    errorUrl.searchParams.set("error", error.message || "Something went wrong. Please try again.");
+    return NextResponse.redirect(errorUrl, { status: 303 });
   }
 
   const userId = data.user?.id;
@@ -53,10 +55,9 @@ export async function POST(req: NextRequest) {
     ]);
 
     if (dbError) {
-      // console.error("Error inserting patient:", dbError,data);  // Log the full error object
-      return NextResponse.redirect(url.origin + "/login", {
-        status: 301,
-      });
+      const errorUrl = new URL("/signup", req.url);
+      errorUrl.searchParams.set("error", dbError.message || "Something went wrong. Please try again.");
+      return NextResponse.redirect(errorUrl, { status: 303 });
     }
 
   // return NextResponse.redirect(new URL("/login", req.url));
